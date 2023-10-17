@@ -81,30 +81,35 @@ printListItems(sports);
 
 let gamesList = document.querySelector(".game-container");
 gamesList.classList.add("game");
-
+let gameHtml = "";
 
 function createGames(games) {
     
-    let gameHtml = "";
+    function checkIfMissing(value){
+        if (value) {
+            return value;
+        }
+
+        else {
+            value = "Data Unavailable"
+            return value
+        }
+    }
 
     for (let i = 0; i < games.length; i++) {
 
-        let gameName = games[i].name;
-        let gameRelease = "Release Date Unavailable"
+        gameName = games[i].name;
+        gameRelease = games[i].released
 
-        if (games[i].released) {
-            gameRelease = games[i].released;
-        }
+        checkedName = checkIfMissing(gameName);
+        checkedRelease = checkIfMissing(gameRelease);
 
-        gameHtml += `<h2>${gameName}</h2>
-                        <p>${gameRelease}</p>`
+        gameHtml += `<h2>${checkedName}</h2>
+                        <p>${checkedRelease}</p>`
             
     }
-
-    finalHtml = gameHtml;
-    return finalHtml;
 }
 
 createGames(games)
 
-gamesList.innerHTML = finalHtml;
+gamesList.innerHTML = gameHtml;
